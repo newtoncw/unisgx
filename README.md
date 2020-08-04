@@ -5,7 +5,7 @@
 Source code of the prototype presented in the paper [Using Intel SGX to Protect Authentication Credentials in an Untrusted Operating System](https://ieeexplore.ieee.org/document/8538470), presented at [23th IEEE Symposium on Computers and Communications (ISCC 2018)](https://iscc2018.ieee-iscc.org).
 
 ### Abstract
-We present a novel password file protection scheme, which uses Intel SGX to protect authentication credentials in the PAM authentication framework, commonly used in UNIX systems. We defined and implemented an SGX-enabled version of the pam_unix.so authentication module, called UniSGX. This module uses an SGX enclave to handle the credentials informed by the user and to check them against the password file. To add an extra security layer, the password file is stored using SGX sealing. Different scenarios were implemented to evaluate the overhead posed by protected memory, sealed file, and the overall overhead:
+We present a novel password file protection scheme, which uses Intel SGX to protect authentication credentials in the PAM authentication framework, commonly used in UNIX systems. We defined and implemented an SGX-enabled version of the pam_unix.so authentication module, called UniSGX. This module uses an SGX enclave to handle the credentials informed by the user and to check them against the password file. To add an extra security layer, the password file is stored using SGX sealing. Different scenarios were implemented to evaluate the overhead posed by protected memory, sealed file, and the overall overhead.
 
 ### Sources
 - [UniSGX no seal](https://github.com/newtoncw/unisgx/tree/master/unisgx_no_seal): The authentication is done inside the enclave, but the original unprotected credentials file is used.
@@ -28,4 +28,6 @@ Using SGX enclaves usually incurs in a performance impact in the application exe
 
 - [UniSGX Authentication Service with Attestation](https://github.com/newtoncw/unisgx/tree/master/unisgx_auth_server_attestation): SGX local attestation is used to verify whether the UniSGX client process is running in the same platform as the server process.
 
-If you make nay use of this code for academic purpose, please cite the paper.
+## License
+
+Licenced under the GPL-3.0 License. If you make any use of this code for academic purpose, you must cite the papers.
