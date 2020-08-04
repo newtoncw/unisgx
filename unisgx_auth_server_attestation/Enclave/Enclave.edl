@@ -1,0 +1,26 @@
+/* Libc.edl - EDL sample for trusted C library. */
+
+enclave {
+	include "sgx_eid.h"
+	include "sgx_dh.h"
+	include "sgx_tseal.h"
+
+	//from "sgx_tstdc.edl" import sgx_thread_wait_untrusted_event_ocall, sgx_thread_set_untrusted_event_ocall;
+
+	trusted {
+		public sgx_status_t ecall_seal_data([in, string] const char* fileName, [in, size=length] void* data, int length);
+		public void ecall_verify_user_pwd(sgx_enclave_id_t enclave_id, [in, size=message_size] sgx_aes_gcm_data_t* message, size_t message_size, [out, size=response_size] sgx_aes_gcm_data_t* response, size_t response_size);
+		public void ecall_unseal_data([in, size = sealed_data_size] sgx_sealed_data_t *p_sealed_data, uint32_t sealed_data_size);
+		public void ecall_session_request(sgx_enclave_id_t enclave_id, [out] sgx_dh_msg1_t *dh_msg1);
+		public void ecall_exchange_report(sgx_enclave_id_t enclave_id, [in] sgx_dh_msg2_t *dh_msg2, [out] sgx_dh_msg3_t *dh_msg3, [out] sgx_key_128bit_t *dh_aek);
+	};
+
+	untrusted {
+		void ocall_print_int(int i);
+		void ocall_print_pointer([in, string] char *val);
+		void ocall_print([in, string] const char* data);
+		sgx_status_t save_data([in, string] const char* fileName, [in, size=length] void* data, long length);
+		void ocall_sleep(void);
+    	};
+};
+
